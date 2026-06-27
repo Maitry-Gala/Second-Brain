@@ -34,10 +34,10 @@ function DashboardInner() {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-gray-100 dark: bg-gray-950">
       <Sidebar />
 
-      <div className="flex-1 ml-64 p-6">
+      <div className="flex-1 ml-64 p-6 dark: bg-gray-950">
         <CreateContentModal
           open={modalOpen}
           onClose={() => setModalOpen(false)}
@@ -50,7 +50,7 @@ function DashboardInner() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search in your brain.."
-              className="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 bg-white outline-none focus:ring-2 focus:ring-purple-300 focus:border-purple-400 transition-all"
+              className="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 bg-white outline-none focus:ring-2 focus:ring-purple-300 focus:border-purple-400 transition-all dark:bg-gray-900 dark:border-gray-700 dark:text-gray-100 dark:placeholder-gray-500"
             />
           </div>
 
@@ -79,7 +79,7 @@ function DashboardInner() {
           </div>
         ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-64 text-gray-400">
-            <p className="text-sm">No content yet. Add something!</p>
+            <p className="text-sm dark: bg-gray-500">No content yet. Add something!</p>
           </div>
         ) : (
           <div className="flex gap-4 flex-wrap items-start">

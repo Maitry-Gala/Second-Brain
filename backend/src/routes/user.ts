@@ -158,8 +158,7 @@ userRouter.get("/content", auth, async (req: Request, res: Response) => {
 
     return res.status(201).json({
       content,
-      hasMore,
-      nextCursor: hasMore ? content[content.length - 1]._id : null,
+      hasMore
     });
   } catch (e) {
     return res.status(500).json({

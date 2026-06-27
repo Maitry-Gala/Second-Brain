@@ -17,8 +17,8 @@ export function SidebarItem({ text, icon, active, onClick }: SidebarItemProps) {
         "transition-all duration-150 outline-none group",
         "focus-visible:ring-2 focus-visible:ring-purple-500/40",
         active
-          ? "bg-purple-50 text-primary"
-          : "text-gray-500 hover:bg-gray-100 hover:text-gray-900"
+          ? "bg-purple-50 text-primary dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100"
+          : "text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100"
       )}
     >
       <span className={cn(
