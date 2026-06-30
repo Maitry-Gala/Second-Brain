@@ -3,6 +3,8 @@ import { AuthPage } from "./pages/AuthPage"
 import { Toaster } from "sonner";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import { SharedBrain } from "./pages/ShareBrain";
+import { Landing } from "./pages/Landing";
+import { GoogleCallback } from "./components/ui/GoogleCallback";
 
 function ProtectedRoute({children}: {children: React.ReactNode}) {
   const token = localStorage.getItem("token");
@@ -16,7 +18,9 @@ function App() {
     <Toaster position="top-right" richColors/>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<AuthPage/>} />
+        <Route path="/" element={<Landing/>} />
+        <Route path="/auth/callback" element={<GoogleCallback />} />
+        <Route path="/auth" element={<AuthPage/>} />
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/brain/:shareLink" element={<SharedBrain />} />
         

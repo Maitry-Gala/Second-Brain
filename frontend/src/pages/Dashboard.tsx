@@ -34,10 +34,10 @@ function DashboardInner() {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-100 dark: bg-gray-950">
+    <div className="flex min-h-screen bg-gray-900">
       <Sidebar />
 
-      <div className="flex-1 ml-64 p-6 dark: bg-gray-950">
+      <div className="flex-1 ml-64 p-6 bg-gray-100 dark:bg-gray-950">
         <CreateContentModal
           open={modalOpen}
           onClose={() => setModalOpen(false)}
@@ -78,8 +78,8 @@ function DashboardInner() {
             ))}
           </div>
         ) : filtered.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-64 text-gray-400">
-            <p className="text-sm dark: bg-gray-500">No content yet. Add something!</p>
+          <div className="flex flex-col items-center justify-center h-64 text-gray-400 text-ceneter">
+            <p className="text-sm text-center">No content yet. Add something!</p>
           </div>
         ) : (
           <div className="flex gap-4 flex-wrap items-start">

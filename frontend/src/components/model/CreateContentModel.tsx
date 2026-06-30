@@ -48,12 +48,12 @@ export function CreateContentModal({ open, onClose }: { open: boolean; onClose: 
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-      <div ref={ref} className="bg-white rounded-xl shadow-xl w-full max-w-md mx-4 overflow-hidden">
+      <div ref={ref} className="bg-whitedark:bg-gray-900 rounded-xl shadow-xl w-full max-w-md mx-4 overflow-hidden dark:bg-gray-500 bg-gray-100">
 
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 dark:border-gray-600">
           <h2 className="text-sm font-semibold text-gray-900">Add Content</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors">
+          <button onClick={onClose} className="text-gray-400  dark:hover:text-gray-300hover:text-gray-600 transition-colors">
             <CloseIcon />
           </button>
         </div>
@@ -61,31 +61,31 @@ export function CreateContentModal({ open, onClose }: { open: boolean; onClose: 
         {/* Body */}
         <div className="px-5 py-4 flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-medium text-gray-500">Title</label>
+            <label className="text-xs font-medium text-gray-500 dark:text-gray-400">Title</label>
             <input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. Interesting article on AI"
-              className="w-full px-3 py-2.5 text-sm rounded-lg border border-gray-200 outline-none focus:ring-2 focus:ring-purple-300 focus:border-purple-400 transition-all"
+              className="w-full px-3 py-2.5 text-sm font-semibold text-gray-900 dark:text-gray-100rounded-lg border border-gray-200 outline-none focus:ring-2 focus:ring-purple-300 focus:border-purple-400 transition-all dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100 dark:placeholder-gray-500 focus:ring-purple-300 dark:focus:ring-purple-800"
             />
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-medium text-gray-500">Link</label>
+            <label className="text-xs font-medium text-gray-500 dark:text-gray-400">Link</label>
             <input
               value={link}
               onChange={(e) => setLink(e.target.value)}
               placeholder="https://"
-              className="w-full px-3 py-2.5 text-sm rounded-lg border border-gray-200 outline-none focus:ring-2 focus:ring-purple-300 focus:border-purple-400 transition-all"
+              className="w-full px-3 py-2.5 text-sm rounded-lg border border-gray-200 outline-none focus:ring-2 focus:ring-purple-300 focus:border-purple-400 transition-all dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100 dark:placeholder-gray-500 focus:ring-purple-300 dark:focus:ring-purple-800"
             />
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-medium text-gray-500">Type</label>
+            <label className="text-xs font-medium text-gray-500 dark:text-gray-400">Type</label>
             <select
               value={type}
               onChange={(e) => setType(e.target.value as ContentType)}
-              className="w-full px-3 py-2.5 text-sm rounded-lg border border-gray-200 outline-none focus:ring-2 focus:ring-purple-300 focus:border-purple-400 transition-all bg-white"
+              className="w-full px-3 py-2.5 text-sm rounded-lg border border-gray-200 outline-none focus:ring-2 focus:ring-purple-300 focus:border-purple-400 transition-all bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100 dark:placeholder-gray-500 focus:ring-purple-300 dark:focus:ring-purple-800"
             >
               {CONTENT_TYPES.map(({ value, label }) => (
                 <option key={value} value={value}>{label}</option>
@@ -95,10 +95,10 @@ export function CreateContentModal({ open, onClose }: { open: boolean; onClose: 
         </div>
 
         {/* Footer */}
-        <div className="px-5 py-4 border-t border-gray-100 flex justify-end gap-3">
+        <div className="px-5 py-4 border-t border-gray-100 flex justify-end gap-3dark:border-gray-800">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors"
+            className="px-4 py-2 text-sm font-medium text-gray-500dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:text-gray-700 transition-colors"
           >
             Cancel
           </button>

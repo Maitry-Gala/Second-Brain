@@ -75,17 +75,17 @@ function LinkPreview({ url }: { url: string }) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="block rounded-md border border-gray-100 overflow-hidden hover:border-gray-300 transition-colors"
+      className="block rounded-md border border-gray-100 overflow-hidden hover:border-gray-300 transition-colors dark:border-gray-800 overflow-hidden hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
     >
       {og?.image && (
         <img src={og.image} alt="" className="w-full h-32 object-cover" />
       )}
       <div className="p-2">
-        <p className="text-xs font-medium text-gray-800 truncate">
+        <p className="text-xs font-medium text-gray-800  dark:text-gray-200 truncate">
           {og?.title ?? url}
         </p>
         {og?.description && (
-          <p className="text-xs text-gray-400 mt-0.5 line-clamp-2">
+          <p className="text-xs text-gray-400 mt-0.5 line-clamp-2 font-medium text-gray-800 dark:text-gray-200 truncate">
             {og.description}
           </p>
         )}
@@ -129,7 +129,7 @@ class CardErrorBoundary extends Component<
   }
   render() {
     return this.state.crashed ? (
-      <div className="p-4 w-72 bg-white rounded-md border border-red-200 text-red-400 text-sm">
+      <div className="p-4 w-72 bg-white rounded-md border border-red-200 text-red-400 text-sm dark:bg-gray-900 border-red-200 dark:border-red-900 text-red-400">
         Failed to load content.
       </div>
     ) : (
@@ -196,7 +196,7 @@ export const Card = memo(function Card({
   }
   return (
     <CardErrorBoundary>
-      <div className="p-4 w-72 bg-white rounded-md border border-gray-200 shadow-sm">
+      <div className="p-4 w-72 bg-white dark:bg-gray-900 rounded-md border border-gray-200 dark:border-gray-800 shadow-sm">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2 text-sm font-medium text-gray-700 truncate">
             <DocumentIcon />

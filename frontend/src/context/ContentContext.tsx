@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 import api from "../libs/axios";
 
 export type ContentType = "image" | "video" | "article" | "audio";
@@ -8,6 +14,7 @@ export interface Content {
   title: string;
   link: string;
   type: ContentType;
+ 
 }
 
 interface ContentContextType {
@@ -18,8 +25,9 @@ interface ContentContextType {
   addCard: (card: Content) => void;
   deleteCard: (id: string) => void;
   refresh: () => void;
-  search : string;
+  search: string;
   setSearch: (s: string) => void;
+   user: {firstName: string; lastName: string} | null;
 }
 
 export const ContentContext = createContext<ContentContextType | null>(null);
@@ -27,20 +35,29 @@ export const ContentContext = createContext<ContentContextType | null>(null);
 export function ContentProvider({ children }: { children: ReactNode }) {
   const [cards, setCards] = useState<Content[]>([]);
   const [filter, setFilter] = useState<ContentType | "all">("all");
-  const[loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [user, setUser] = useState<{
+    firstName: string;
+    lastName: string;
+  } | null>(null);
 
-  function fetchCards(q?:string) {
-    setLoading(true)
-    api.get("/user/content",{params: q ? {q} : {}})
-    .then((res) => setCards(res.data.content ?? []))
-    .finally(() => setLoading(false));
+  useEffect(() => {
+     api.get("/user/me").then((res) => setUser(res.data.user));
+  },[])
+
+  function fetchCards(q?: string) {
+    setLoading(true);
+    api
+      .get("/user/content", { params: q ? { q } : {} })
+      .then((res) => setCards(res.data.content ?? []))
+      .finally(() => setLoading(false));
   }
 
   useEffect(() => {
-  const timer = setTimeout(() => fetchCards(search), 600);
-  return () => clearTimeout(timer);
-}, [search]);
+    const timer = setTimeout(() => fetchCards(search), 600);
+    return () => clearTimeout(timer);
+  }, [search]);
 
   function addCard(card: Content) {
     setCards((prev) => [card, ...prev]);
@@ -51,7 +68,20 @@ export function ContentProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <ContentContext.Provider value={{ cards,loading, filter, setFilter, addCard, deleteCard, refresh: fetchCards,search,setSearch }}>
+    <ContentContext.Provider
+      value={{
+        cards,
+        loading,
+        filter,
+        setFilter,
+        addCard,
+        deleteCard,
+        refresh: fetchCards,
+        search,
+        setSearch,
+        user
+      }}
+    >
       {children}
     </ContentContext.Provider>
   );
