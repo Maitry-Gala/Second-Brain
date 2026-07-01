@@ -8,6 +8,8 @@ import cors from 'cors';
 import passport from "passport";
 import "./config/passport.js";
 import askRouter from "./routes/ask.js";
+import { auth } from "./middleware/auth.js";
+import authRouter from "./routes/auth.js";
 
 const app = express();
 app.use(express.json());
@@ -26,7 +28,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/api/v1/user",userRouter);
-app.use("/api/v1/auth", askRouter);
+app.use("/api/v1/auth", authRouter)
+app.use("/api/v1/chat", askRouter);
 
 connectToMongoDB().then(() => {
     app.listen(3000, () => {

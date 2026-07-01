@@ -9,10 +9,13 @@ import { Sidebar } from "../components/asidebar/Slidebar";
 import { ContentProvider, useContent } from "../context/ContentContext";
 import api from "../libs/axios";
 import { CardSkeleton } from "../components/ui/CardSkeleton";
+import { AskBrainPanel } from "../components/ask/AskBrainPanel";
+import { AskProvider } from "../context/AskContext";
 
 function DashboardInner() {
   const [modalOpen, setModalOpen] = useState(false);
   const { cards, filter, loading, search, setSearch } = useContent();
+  const [askOpen, setAskOpen] = useState(false);
 
   const filtered =
     filter === "all" ? cards : cards.filter((c) => c.type === filter);
@@ -42,6 +45,7 @@ function DashboardInner() {
           open={modalOpen}
           onClose={() => setModalOpen(false)}
         />
+        <AskBrainPanel open={askOpen} onClose={() => setAskOpen(false)} />
 
         {/* Topbar */}
         <div className="flex justify-end gap-3 mb-6">
@@ -53,6 +57,13 @@ function DashboardInner() {
               className="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 bg-white outline-none focus:ring-2 focus:ring-purple-300 focus:border-purple-400 transition-all dark:bg-gray-900 dark:border-gray-700 dark:text-gray-100 dark:placeholder-gray-500"
             />
           </div>
+          <Button
+            variant="primary"
+            text="Ask Brain"
+            startIcon={<span>🧠</span>}
+            onClick={() => setAskOpen(true)}
+            disabled={false}
+          />
 
           <Button
             variant="primary"
@@ -79,7 +90,9 @@ function DashboardInner() {
           </div>
         ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-64 text-gray-400 text-ceneter">
-            <p className="text-sm text-center">No content yet. Add something!</p>
+            <p className="text-sm text-center">
+              No content yet. Add something!
+            </p>
           </div>
         ) : (
           <div className="flex gap-4 flex-wrap items-start">
@@ -102,7 +115,9 @@ function DashboardInner() {
 export function Dashboard() {
   return (
     <ContentProvider>
-      <DashboardInner />
+      <AskProvider>
+        <DashboardInner />
+      </AskProvider>
     </ContentProvider>
   );
 }

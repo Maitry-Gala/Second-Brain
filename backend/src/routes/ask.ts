@@ -82,7 +82,8 @@ Rules:
 - If a note is only a bookmark or link with no description, say that it exists but explain that there isn't enough saved information to answer in detail.
 - Never invent information.
 - Cite notes like [1].
-- Keep answers concise unless the user asks for more detail.
+- Keep answers short  unless the user asks for more detail.
+- keep response shorter and crisp like an chat
 
 Saved Notes:
 ${context}`,
