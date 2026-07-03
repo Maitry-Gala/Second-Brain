@@ -44,7 +44,11 @@ function LinkPreview({ url }: { url: string }) {
           setOg({
             title: data.data?.title,
             description: data.data?.description,
-            image: data.data?.image?.url,
+            image:
+              typeof data.data?.image === "string"
+                ? data.data.image
+                : (data.data?.image?.url ?? null),
+
             siteName: data.data?.publisher,
           });
         } else {
@@ -78,7 +82,12 @@ function LinkPreview({ url }: { url: string }) {
       className="block rounded-md border border-gray-100 overflow-hidden hover:border-gray-300 transition-colors dark:border-gray-800 overflow-hidden hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
     >
       {og?.image && (
-        <img src={og.image} alt="" className="w-full h-32 object-cover" />
+        <img
+          src={og.image}
+          alt=""
+          className="w-full h-32 object-cover"
+          onError={(e) => (e.currentTarget.style.display = "none")}
+        />
       )}
       <div className="p-2">
         <p className="text-xs font-medium text-gray-800  dark:text-gray-200 truncate">
