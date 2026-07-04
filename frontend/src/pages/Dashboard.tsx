@@ -83,7 +83,7 @@ function DashboardInner() {
 
         {/* Cards */}
         {loading ? (
-          <div className="flex gap-4 flex-wrap items-start">
+          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {Array.from({ length: 6 }).map((_, i) => (
               <CardSkeleton key={i} />
             ))}

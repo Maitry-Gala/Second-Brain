@@ -212,7 +212,7 @@ export const Card = memo(function Card({
   }
   return (
     <CardErrorBoundary>
-      <div className="p-4 w-72 bg-white dark:bg-gray-900 rounded-md border border-gray-200 dark:border-gray-800 shadow-sm">
+      <div className="p-4 w-64 bg-white dark:bg-gray-900 rounded-md border border-gray-200 dark:border-gray-800 shadow-sm">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2 text-sm font-medium text-gray-500 truncate dark:text-gray-300">
             <DocumentIcon />
