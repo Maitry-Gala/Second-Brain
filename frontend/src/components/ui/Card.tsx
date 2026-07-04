@@ -14,6 +14,7 @@ import Youtube from "react-youtube";
 import api from "../../libs/axios";
 import { useContext } from "react";
 import { ContentContext } from "../../context/ContentContext";
+import { toast } from "sonner";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -205,31 +206,37 @@ export const Card = memo(function Card({
     await api.delete("/user/content", { data: { contentId: id } });
     ctx?.deleteCard(id);
   }
+
+  async function handleCopy() {
+    await navigator.clipboard.writeText(url);
+    toast.success("Link copied!");
+  }
   return (
     <CardErrorBoundary>
       <div className="p-4 w-72 bg-white dark:bg-gray-900 rounded-md border border-gray-200 dark:border-gray-800 shadow-sm">
         <div className="flex justify-between items-center">
-          <div className="flex items-center gap-2 text-sm font-medium text-gray-700 truncate">
+          <div className="flex items-center gap-2 text-sm font-medium text-gray-500 truncate dark:text-gray-300">
             <DocumentIcon />
             <span className="truncate">{title}</span>
           </div>
-          {!readonly && (
+          
             <div className="flex items-center gap-2 shrink-0 ml-2 text-gray-400">
               <button
-                aria-label="Share"
-                className="hover:text-gray-600 transition-colors"
+                aria-label="Copy link"
+                onClick={handleCopy}
+                className="hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
               >
                 <ShareIcon />
               </button>
-              <button
+              {!readonly && (<button
                 aria-label="Delete"
                 onClick={handleDelete}
-                className="hover:text-red-500 transition-colors"
+                className="hover:text-red-500 dark:hover:text-red-300 transition-colors"
               >
                 <DeleteIcon />
               </button>
+              )}
             </div>
-          )}
         </div>
         <div className="mt-4">
           <ContentEmbed url={url} type={type} />
