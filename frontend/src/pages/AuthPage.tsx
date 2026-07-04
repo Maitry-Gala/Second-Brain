@@ -62,7 +62,7 @@ export function AuthPage() {
             <div className="flex-1 h-px bg-gray-100" />
           </div>
           <a
-            href="http://localhost:3000/api/v1/auth/google"
+            href={`${import.meta.env.VITE_API_URL}/auth/google`}
             className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-md border border-gray-200 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
           >
             <svg width="16" height="16" viewBox="0 0 24 24">
