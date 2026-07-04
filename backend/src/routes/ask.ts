@@ -9,6 +9,25 @@ import rateLimit from "express-rate-limit";
 
 const askRouter: Router = Router();
 
+function sanitizeInput(input: string): string {
+  const injectionPatterns = [
+    /ignore (previous|all|above) instructions/i,
+    /system prompt/i,
+    /reveal your (prompt|instructions)/i,
+    /you are now/i,
+    /pretend (you are|to be)/i,
+    /act as/i,
+    /forget (everything|your instructions)/i,
+  ];
+
+  for (const pattern of injectionPatterns) {
+    if (pattern.test(input)) {
+      return "what did I save recently?"; // safe fallback question
+    }
+  }
+  return input;
+}
+
 const client = new OpenAI({
   apiKey: process.env.GROQ_API_KEY,
   baseURL: "https://api.groq.com/openai/v1",
@@ -52,6 +71,8 @@ askRouter.post(
         return res.status(400).json({ message: "Question too long." });
       }
 
+      const safeQuestion = sanitizeInput(question);
+
       const items = await contentModel
         .find({ userId: req.userId })
         .select("title link description type")
@@ -73,7 +94,13 @@ askRouter.post(
         )
         .join("\n\n");
 
-      const recentHistory = Array.isArray(history) ? history.slice(-6).filter(m => m.content.length < 500)  : []; // keeping last 10 messages
+      const safeHistory = Array.isArray(history)
+        ? history
+            .slice(-6)
+            .filter(
+              (m) => typeof m.content === "string" && m.content.length < 500,
+            )
+        : [];
 
       const messages = [
         {
@@ -94,11 +121,11 @@ Saved Notes:
 ${context}`,
         },
 
-        ...recentHistory,
+        ...safeHistory,
 
         {
           role: "user" as const,
-          content: question,
+          content: safeQuestion,
         },
       ];
       const completion = await client.chat.completions.create({
