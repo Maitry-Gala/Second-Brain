@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: " https://second-brain-n95c.onrender.com/api/v1",
+    baseURL: import.meta.env.VITE_API_URL,
 });
 
 api.interceptors.request.use((config) => {
