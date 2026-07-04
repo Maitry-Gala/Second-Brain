@@ -31,7 +31,7 @@ userRouter.post(
         });
       }
 
-      const hashedPassword = await bcrypt.hash(password, 3);
+      const hashedPassword = await bcrypt.hash(password, 5);
 
       await UserModel.create({
         email,
@@ -66,6 +66,9 @@ userRouter.post(
         return res.status(403).json({
           message: "Invalid email or password",
         });
+      }
+      if (user.password === "google-oauth") {
+        return res.status(403).json({ message: "Please sign in with Google." });
       }
 
       const passwordMatched = await bcrypt.compare(password, user.password);
