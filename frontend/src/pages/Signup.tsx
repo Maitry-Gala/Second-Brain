@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
-import { signupSchema } from "../../../backend/src/schemas/user.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { SubmitHandler } from "react-hook-form";
 import type { z } from "zod";
 import axios from 'axios';
 import { toast } from "sonner";
 import api from "../libs/axios";
+import { signupSchema } from "../schemas/schema";
 
 type SignupInputs = z.infer<typeof signupSchema>;
 

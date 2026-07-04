@@ -1,4 +1,4 @@
-import { signinSchema } from "../../../backend/src/schemas/user.schema";
+import { signinSchema } from "../schemas/schema";
 import type { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
